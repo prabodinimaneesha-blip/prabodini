@@ -5,8 +5,9 @@ import styles from "./checkout.module.css";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Script from "next/script";
+import { Suspense } from "react";
 
-export default function CheckoutPage() {
+function CheckoutForm() {
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     firstName: "",
@@ -133,11 +134,6 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className={styles.checkoutContainer}>
-      <Header />
-      {/* Load PayHere Script */}
-      <Script src="https://www.payhere.lk/lib/payhere.js" strategy="lazyOnload" />
-
       <main className={styles.checkoutContent}>
         <h1 className={styles.pageTitle}>Secure Checkout</h1>
 
@@ -226,6 +222,19 @@ export default function CheckoutPage() {
 
         </form>
       </main>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <div className={styles.checkoutContainer}>
+      <Header />
+      {/* Load PayHere Script */}
+      <Script src="https://www.payhere.lk/lib/payhere.js" strategy="lazyOnload" />
+
+      <Suspense fallback={<div style={{ textAlign: "center", padding: "2rem" }}>Loading checkout...</div>}>
+        <CheckoutForm />
+      </Suspense>
     </div>
   );
 }
