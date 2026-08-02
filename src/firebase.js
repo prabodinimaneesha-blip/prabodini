@@ -1,5 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 // Firebase Configuration Keys
 const firebaseConfig = {
@@ -15,5 +16,7 @@ const firebaseConfig = {
 // Initialize Firebase safely for Next.js (prevent duplicate initialization)
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const db = getFirestore(app);
+const storage = getStorage(app);
 
-export { app, db };
+export { app, db, storage };
+

@@ -163,3 +163,9 @@
     gap: 1.5rem;
   }
 }
+
+@media (max-width: 560px) {
+  .catalogGrid {
+    grid-template-columns: 1fr;
+  }
+}

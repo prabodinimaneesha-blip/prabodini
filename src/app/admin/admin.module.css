@@ -263,3 +263,69 @@
   margin-bottom: 1rem;
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .dashboardContainer {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 1.5rem;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .logo {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .navMenu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .navLink {
+    padding: 0.6rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .mainContent {
+    padding: 2rem 1.5rem;
+  }
+  
+  .metricsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .tableContainer {
+    overflow-x: auto;
+  }
+  
+  .table {
+    min-width: 600px;
+  }
+}
+
+@media (max-width: 560px) {
+  .navMenu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .navLink {
+    justify-content: center;
+  }
+  
+  .navLink:last-child {
+    grid-column: span 2;
+    margin-top: 0.5rem !important; /* overrides inline style if necessary */
+  }
+}

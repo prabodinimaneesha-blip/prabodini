@@ -184,6 +184,160 @@
   box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
 }
 
+/* ── Payment Method Cards ──────────────────────────────────────────── */
+.paymentOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.paymentCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  background: #f8fafc;
+  position: relative;
+}
+
+.paymentCard:hover {
+  border-color: #94a3b8;
+  background: #ffffff;
+}
+
+.paymentCardActive {
+  border-color: #0f172a !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+}
+
+.paymentRadio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.paymentIcon {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.paymentInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.paymentLabel {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+.paymentDesc {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.paymentCheck {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  background: #facc15;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Bank Details Box ──────────────────────────────────────────────── */
+.bankDetails {
+  margin-top: 1.25rem;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  animation: fadeSlideIn 0.25s ease;
+}
+
+.bankDetailsTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0c4a6e;
+  margin-bottom: 0.875rem;
+}
+
+.bankRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #e0f2fe;
+  color: #1e293b;
+}
+
+.bankRow:last-of-type {
+  border-bottom: none;
+}
+
+.bankRow span:first-child {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.bankRow span:last-child {
+  font-weight: 600;
+}
+
+.bankNote {
+  margin-top: 0.875rem;
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.6;
+  background: #e0f2fe;
+  border-radius: 4px;
+  padding: 0.6rem 0.85rem;
+}
+
+/* ── COD Note ──────────────────────────────────────────────────────── */
+.codNote {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: #fefce8;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;
+  color: #78350f;
+  line-height: 1.6;
+  animation: fadeSlideIn 0.25s ease;
+}
+
+.codNote span {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.codNote p {
+  margin: 0;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 968px) {
   .checkoutGrid {
     grid-template-columns: 1fr;
@@ -192,5 +346,22 @@
   
   .summarySection {
     position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .formSection, .summarySection {
+    padding: 1.5rem;
+  }
+  .pageTitle {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  .checkoutContent {
+    padding: 2rem 5%;
   }
 }

@@ -21,6 +21,7 @@ function CheckoutForm() {
 
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('payhere'); // 'payhere' | 'cod' | 'bank'
 
   useEffect(() => {
     // Read product details from query parameters
@@ -43,7 +44,7 @@ function CheckoutForm() {
   }, [searchParams]);
 
   const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.qty), 0);
-  const shipping = subtotal > 100 ? 0 : 10.00; // Free shipping over $100
+  const shipping = subtotal > 5000 ? 0 : 350.00; // Free shipping over Rs. 5000
   const total = subtotal + shipping;
 
   const handleInputChange = (e) => {
@@ -59,6 +60,33 @@ function CheckoutForm() {
       return;
     }
 
+    // ── Cash on Delivery ──────────────────────────────────────────────
+    if (paymentMethod === 'cod') {
+      alert(
+        `✅ Order Placed Successfully!\n\n` +
+        `Thank you, ${formData.firstName}! Your order has been received.\n` +
+        `Please have Rs. ${total.toLocaleString('en-LK', { minimumFractionDigits: 2 })} ready upon delivery.\n\n` +
+        `We will contact you at ${formData.phone} to confirm the delivery date.`
+      );
+      return;
+    }
+
+    // ── Bank Transfer ─────────────────────────────────────────────────
+    if (paymentMethod === 'bank') {
+      alert(
+        `🏦 Order Placed — Awaiting Bank Transfer\n\n` +
+        `Please transfer Rs. ${total.toLocaleString('en-LK', { minimumFractionDigits: 2 })} to:\n\n` +
+        `  Bank   : Commercial Bank of Ceylon\n` +
+        `  Branch : Colombo 03\n` +
+        `  A/C No : 8001 2345 6789\n` +
+        `  Name   : Viola Gifts (Pvt) Ltd\n\n` +
+        `Once transferred, send your receipt to orders@violagifts.lk\n` +
+        `and we will process your order within 24 hours.`
+      );
+      return;
+    }
+
+    // ── PayHere Card / Online Payment ─────────────────────────────────
     setLoading(true);
 
     try {
@@ -110,7 +138,6 @@ function CheckoutForm() {
       window.payhere.onCompleted = function onCompleted(completedOrderId) {
         console.log("Payment completed. OrderID:" + completedOrderId);
         alert("Payment successful! Thank you for your order.");
-        // Optional: Redirect to a success page
       };
 
       window.payhere.onDismissed = function onDismissed() {
@@ -175,6 +202,111 @@ function CheckoutForm() {
                 </div>
               </div>
             </section>
+
+            {/* Payment Method Section */}
+            <section className={styles.formSection}>
+              <h2 className={styles.sectionTitle}>2. Payment Method</h2>
+
+              <div className={styles.paymentOptions}>
+
+                {/* PayHere – Card / Online */}
+                <label
+                  htmlFor="pay-payhere"
+                  className={`${styles.paymentCard} ${
+                    paymentMethod === 'payhere' ? styles.paymentCardActive : ''
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    id="pay-payhere"
+                    name="paymentMethod"
+                    value="payhere"
+                    checked={paymentMethod === 'payhere'}
+                    onChange={() => setPaymentMethod('payhere')}
+                    className={styles.paymentRadio}
+                  />
+                  <span className={styles.paymentIcon}>💳</span>
+                  <div className={styles.paymentInfo}>
+                    <span className={styles.paymentLabel}>Card / Online Payment</span>
+                    <span className={styles.paymentDesc}>Pay securely via PayHere (Visa, Master, Amex, eZ Cash &amp; more)</span>
+                  </div>
+                  {paymentMethod === 'payhere' && <span className={styles.paymentCheck}>✓</span>}
+                </label>
+
+                {/* Cash on Delivery */}
+                <label
+                  htmlFor="pay-cod"
+                  className={`${styles.paymentCard} ${
+                    paymentMethod === 'cod' ? styles.paymentCardActive : ''
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    id="pay-cod"
+                    name="paymentMethod"
+                    value="cod"
+                    checked={paymentMethod === 'cod'}
+                    onChange={() => setPaymentMethod('cod')}
+                    className={styles.paymentRadio}
+                  />
+                  <span className={styles.paymentIcon}>🚚</span>
+                  <div className={styles.paymentInfo}>
+                    <span className={styles.paymentLabel}>Cash on Delivery</span>
+                    <span className={styles.paymentDesc}>Pay in cash when your order arrives at your door</span>
+                  </div>
+                  {paymentMethod === 'cod' && <span className={styles.paymentCheck}>✓</span>}
+                </label>
+
+                {/* Bank Transfer */}
+                <label
+                  htmlFor="pay-bank"
+                  className={`${styles.paymentCard} ${
+                    paymentMethod === 'bank' ? styles.paymentCardActive : ''
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    id="pay-bank"
+                    name="paymentMethod"
+                    value="bank"
+                    checked={paymentMethod === 'bank'}
+                    onChange={() => setPaymentMethod('bank')}
+                    className={styles.paymentRadio}
+                  />
+                  <span className={styles.paymentIcon}>🏦</span>
+                  <div className={styles.paymentInfo}>
+                    <span className={styles.paymentLabel}>Bank Transfer</span>
+                    <span className={styles.paymentDesc}>Direct bank deposit — order confirmed after receipt is sent</span>
+                  </div>
+                  {paymentMethod === 'bank' && <span className={styles.paymentCheck}>✓</span>}
+                </label>
+
+              </div>
+
+              {/* Bank Transfer Details (shown inline when selected) */}
+              {paymentMethod === 'bank' && (
+                <div className={styles.bankDetails}>
+                  <h3 className={styles.bankDetailsTitle}>🏦 Bank Account Details</h3>
+                  <div className={styles.bankRow}><span>Bank</span><span>Commercial Bank of Ceylon</span></div>
+                  <div className={styles.bankRow}><span>Branch</span><span>Colombo 03</span></div>
+                  <div className={styles.bankRow}><span>Account No.</span><span>8001 2345 6789</span></div>
+                  <div className={styles.bankRow}><span>Account Name</span><span>Viola Gifts (Pvt) Ltd</span></div>
+                  <p className={styles.bankNote}>
+                    After transferring, email your receipt to{' '}
+                    <strong>orders@violagifts.lk</strong>. Your order will be processed within 24 hours.
+                  </p>
+                </div>
+              )}
+
+              {/* COD note */}
+              {paymentMethod === 'cod' && (
+                <div className={styles.codNote}>
+                  <span>🛡️</span>
+                  <p>Please ensure someone is available at the delivery address to receive and pay for the order. COD is available island-wide.</p>
+                </div>
+              )}
+
+            </section>
           </div>
 
           {/* Right Column: Order Summary */}
@@ -192,7 +324,7 @@ function CheckoutForm() {
                         <span className={styles.itemQty}>Qty: {item.qty}</span>
                       </div>
                     </div>
-                    <span className={styles.itemPrice}>${(item.price * item.qty).toFixed(2)}</span>
+                    <span className={styles.itemPrice}>Rs. {(item.price * item.qty).toLocaleString("en-LK", { minimumFractionDigits: 2 })}</span>
                   </div>
                 ))
               ) : (
@@ -203,20 +335,26 @@ function CheckoutForm() {
             <div className={styles.summaryTotals}>
               <div className={styles.totalRow}>
                 <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>Rs. {subtotal.toLocaleString("en-LK", { minimumFractionDigits: 2 })}</span>
               </div>
               <div className={styles.totalRow}>
                 <span>Shipping</span>
-                <span>{shipping === 0 ? "FREE" : `$${shipping.toFixed(2)}`}</span>
+                <span>{shipping === 0 ? "FREE" : `Rs. ${shipping.toLocaleString("en-LK", { minimumFractionDigits: 2 })}`}</span>
               </div>
               <div className={`${styles.totalRow} ${styles.grandTotal}`}>
                 <span>Total</span>
-                <span>${total.toFixed(2)}</span>
+                <span>Rs. {total.toLocaleString("en-LK", { minimumFractionDigits: 2 })}</span>
               </div>
             </div>
 
             <button type="submit" className={styles.checkoutBtn} disabled={loading || cartItems.length === 0}>
-              {loading ? "Processing..." : "Pay with PayHere"}
+              {loading
+                ? 'Processing...'
+                : paymentMethod === 'cod'
+                ? '🚚 Place Order (Cash on Delivery)'
+                : paymentMethod === 'bank'
+                ? '🏦 Place Order (Bank Transfer)'
+                : '💳 Pay with PayHere'}
             </button>
           </aside>
 

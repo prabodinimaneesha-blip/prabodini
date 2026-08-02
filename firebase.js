@@ -1,19 +1,19 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
-// Firebase Configuration Keys
 const firebaseConfig = {
-    apiKey: "AIzaSyCA5BNQ4_eqiAmSHK5MdVz99Q9zA8CLqyg",
-    authDomain: "viola-gifts1.firebaseapp.com",
-    projectId: "viola-gifts1",
-    storageBucket: "viola-gifts1.firebasestorage.app",
-    messagingSenderId: "349236815080",
-    appId: "1:349236815080:web:34c7ab91b6dbd3d604d55d",
-    measurementId: "G-5Y9EQDJD28"
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 
-// Export Firestore Database Instance
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+
 export const db = getFirestore(app);
+export const storage = getStorage(app);

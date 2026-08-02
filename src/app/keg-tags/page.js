@@ -13,7 +13,7 @@ const STATIC_TAGS = [
     id: "st1",
     name: "Name Key Tag",
     description: "Custom engraved wooden or acrylic key tag with your name in elegant typography.",
-    price: "12.99",
+    price: "450.00",
     tag: "Best Seller",
     image: "/name_key_tag.png",
   },
@@ -21,7 +21,7 @@ const STATIC_TAGS = [
     id: "st2",
     name: "Animal Key Tags",
     description: "Adorable animal-shaped key tags. Choose from cats, dogs, birds, and more. Perfect for kids and pet lovers.",
-    price: "14.99",
+    price: "550.00",
     tag: "New",
     image: "https://plus.unsplash.com/premium_photo-1663839539442-48e90e4810b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
   },
@@ -29,7 +29,7 @@ const STATIC_TAGS = [
     id: "st3",
     name: "Letter Key Tag",
     description: "Sleek and minimalist key tag featuring a single initial letter. Available in multiple finishes.",
-    price: "10.99",
+    price: "390.00",
     tag: "Trending",
     image: "https://plus.unsplash.com/premium_photo-1664392190857-1a9cbec85ee5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
   },
@@ -37,7 +37,7 @@ const STATIC_TAGS = [
     id: "st4",
     name: "Custom Logo Key Tag",
     description: "Perfect for businesses or events. Get your company logo or event symbol engraved on high-quality metal or leather.",
-    price: "18.99",
+    price: "690.00",
     tag: null,
     image: "https://plus.unsplash.com/premium_photo-1668902223961-e603b1188337?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
   }
@@ -112,7 +112,7 @@ export default function KegTagsPage() {
                   <h3 className={tagStyles.catalogCardTitle}>{item.name}</h3>
                   <p className={tagStyles.catalogCardDesc}>{item.description}</p>
                   <div className={tagStyles.catalogCardFooter}>
-                    <span className={tagStyles.catalogPrice}>${item.price}</span>
+                    <span className={tagStyles.catalogPrice}>Rs. {item.price}</span>
                     <button className={tagStyles.catalogBtn} onClick={() => handleBuyNow(item)}>Buy Now</button>
                   </div>
                 </div>
@@ -149,7 +149,7 @@ export default function KegTagsPage() {
                       <h3 className={styles.productName}>{product.name}</h3>
                       <p className={styles.productDescription}>{product.description}</p>
                       <div className={styles.cardFooter}>
-                        <span className={styles.price}>${product.price}</span>
+                        <span className={styles.price}>Rs. {product.price}</span>
                         <span className={`${styles.stockInfo} ${outOfStock ? styles.outOfStock : styles.inStock}`}>
                           {outOfStock ? 'Out of Stock' : `${product.stock_quantity} in stock`}
                         </span>

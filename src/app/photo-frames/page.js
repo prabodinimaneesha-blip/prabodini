@@ -13,7 +13,7 @@ const STATIC_FRAMES = [
     id: "sf1",
     name: "Rustic Wood Frame",
     description: "Handcrafted wooden frame with a warm walnut finish. Holds a 6×8 inch print. Perfect for living room walls.",
-    price: "34.99",
+    price: "2450.00",
     tag: "Best Seller",
     image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=600&auto=format&fit=crop",
   },
@@ -21,7 +21,7 @@ const STATIC_FRAMES = [
     id: "sf2",
     name: "Gold Ornate Frame",
     description: "Elegant gold-finished frame with intricate border detailing. Luxurious centrepiece for any photo or artwork.",
-    price: "44.99",
+    price: "3250.00",
     tag: "Luxury",
     image: "https://images.unsplash.com/photo-1579541814924-49fef17c5be5?q=80&w=600&auto=format&fit=crop",
   },
@@ -29,7 +29,7 @@ const STATIC_FRAMES = [
     id: "sf3",
     name: "Couple Collage Frame",
     description: "Multi-panel collage frame holding 4 photos. Customize with your names & anniversary date engraved.",
-    price: "52.99",
+    price: "3850.00",
     tag: "New",
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=600&auto=format&fit=crop",
   },
@@ -37,7 +37,7 @@ const STATIC_FRAMES = [
     id: "sf4",
     name: "Minimalist White Frame",
     description: "Sleek matte white frame with a clean, modern aesthetic. Available in 4×6, 5×7, and 8×10 sizes.",
-    price: "26.99",
+    price: "1950.00",
     tag: null,
     image: "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?q=80&w=600&auto=format&fit=crop",
   },
@@ -45,7 +45,7 @@ const STATIC_FRAMES = [
     id: "sf5",
     name: "Engraved Name Frame",
     description: "Premium MDF frame with laser-engraved personal name or quote along the border. A truly unique keepsake.",
-    price: "39.99",
+    price: "2850.00",
     tag: "Trending",
     image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=600&auto=format&fit=crop",
   },
@@ -53,7 +53,7 @@ const STATIC_FRAMES = [
     id: "sf6",
     name: "Family Tree Frame",
     description: "Multi-photo family tree design frame that holds up to 7 photos — a beautiful tribute to your family story.",
-    price: "59.99",
+    price: "4250.00",
     tag: "Fan Favourite",
     image: "https://images.unsplash.com/photo-1568199382579-a8a82fcb3f75?q=80&w=600&auto=format&fit=crop",
   },
@@ -129,7 +129,7 @@ export default function PhotoFramesPage() {
                   <h3 className={frameStyles.catalogCardTitle}>{frame.name}</h3>
                   <p className={frameStyles.catalogCardDesc}>{frame.description}</p>
                   <div className={frameStyles.catalogCardFooter}>
-                    <span className={frameStyles.catalogPrice}>${frame.price}</span>
+                    <span className={frameStyles.catalogPrice}>Rs. {frame.price}</span>
                     <button className={frameStyles.catalogBtn} onClick={() => handleBuyNow(frame)}>Buy Now</button>
                   </div>
                 </div>
@@ -159,7 +159,7 @@ export default function PhotoFramesPage() {
                     <h3 className={styles.productName}>{product.name}</h3>
                     <p className={styles.productDescription}>{product.description}</p>
                     <div className={styles.cardFooter}>
-                      <span className={styles.price}>${product.price}</span>
+                      <span className={styles.price}>Rs. {product.price}</span>
                       <span className={`${styles.stockInfo} ${outOfStock ? styles.outOfStock : styles.inStock}`}>
                         {outOfStock ? 'Out of Stock' : `${product.stock_quantity} in stock`}
                       </span>

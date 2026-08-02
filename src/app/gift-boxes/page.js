@@ -13,7 +13,7 @@ const STATIC_BOXES = [
     id: "gb1",
     name: "Rose Gold Luxury Box",
     description: "An exquisite rose gold gift box filled with curated luxury items — chocolates, candles, and a scented bath set. Tied with a satin ribbon.",
-    price: "79.99",
+    price: "5500.00",
     tag: "Best Seller",
     image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=600&auto=format&fit=crop",
   },
@@ -21,7 +21,7 @@ const STATIC_BOXES = [
     id: "gb2",
     name: "Birthday Surprise Box",
     description: "A vibrant birthday-themed gift box packed with treats, confetti, a personalized card, and a mini balloon bouquet.",
-    price: "59.99",
+    price: "4200.00",
     tag: "Trending",
     image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=600&auto=format&fit=crop",
   },
@@ -29,7 +29,7 @@ const STATIC_BOXES = [
     id: "gb3",
     name: "Wedding Hamper Box",
     description: "An elegant white & gold bridal hamper with champagne, artisan chocolates, candles, and a lace ribbon. Perfect for the happy couple.",
-    price: "99.99",
+    price: "6950.00",
     tag: "Luxury",
     image: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?q=80&w=600&auto=format&fit=crop",
   },
@@ -37,7 +37,7 @@ const STATIC_BOXES = [
     id: "gb4",
     name: "Self-Care Gift Box",
     description: "A wellness gift box with premium skincare products, a scented candle, herbal tea, and a cozy eye mask — perfect for pampering.",
-    price: "64.99",
+    price: "4500.00",
     tag: "New",
     image: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?q=80&w=600&auto=format&fit=crop",
   },
@@ -45,7 +45,7 @@ const STATIC_BOXES = [
     id: "gb5",
     name: "Gourmet Chocolate Box",
     description: "A selection of hand-crafted artisan chocolates in a gorgeous keepsake box — dark, milk, and white varieties with premium fillings.",
-    price: "44.99",
+    price: "3200.00",
     tag: "Fan Favourite",
     image: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?q=80&w=600&auto=format&fit=crop",
   },
@@ -53,7 +53,7 @@ const STATIC_BOXES = [
     id: "gb6",
     name: "Floral & Fragrance Box",
     description: "A stunning arrangement of preserved dried flowers paired with a luxury perfume sample set and a hand-written greeting card.",
-    price: "74.99",
+    price: "5200.00",
     tag: null,
     image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=600&auto=format&fit=crop",
   },
@@ -129,7 +129,7 @@ export default function GiftBoxesPage() {
                   <h3 className={boxStyles.catalogCardTitle}>{box.name}</h3>
                   <p className={boxStyles.catalogCardDesc}>{box.description}</p>
                   <div className={boxStyles.catalogCardFooter}>
-                    <span className={boxStyles.catalogPrice}>${box.price}</span>
+                    <span className={boxStyles.catalogPrice}>Rs. {box.price}</span>
                     <button className={boxStyles.catalogBtn} onClick={() => handleBuyNow(box)}>Buy Now</button>
                   </div>
                 </div>
@@ -159,7 +159,7 @@ export default function GiftBoxesPage() {
                     <h3 className={styles.productName}>{product.name}</h3>
                     <p className={styles.productDescription}>{product.description}</p>
                     <div className={styles.cardFooter}>
-                      <span className={styles.price}>${product.price}</span>
+                      <span className={styles.price}>Rs. {product.price}</span>
                       <span className={`${styles.stockInfo} ${outOfStock ? styles.outOfStock : styles.inStock}`}>
                         {outOfStock ? 'Out of Stock' : `${product.stock_quantity} in stock`}
                       </span>

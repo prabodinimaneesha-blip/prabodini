@@ -13,7 +13,7 @@ const STATIC_MUGS = [
     id: "sm1",
     name: "Couple Names Mug",
     description: "A beautifully printed ceramic mug with both names in elegant gold script. Perfect anniversary or Valentine's Day gift.",
-    price: "24.99",
+    price: "1150.00",
     tag: "Best Seller",
     image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=600&auto=format&fit=crop",
   },
@@ -21,7 +21,7 @@ const STATIC_MUGS = [
     id: "sm2",
     name: "Floral Watercolor Mug",
     description: "Delicate watercolor floral pattern customized with your name. Comes in a premium gift box.",
-    price: "19.99",
+    price: "950.00",
     tag: "New",
     image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?q=80&w=600&auto=format&fit=crop",
   },
@@ -29,7 +29,7 @@ const STATIC_MUGS = [
     id: "sm3",
     name: "Photo Print Mug",
     description: "Turn your favorite memory into a stunning full-wrap photo print mug. Food-safe, dishwasher-safe coating.",
-    price: "22.99",
+    price: "1050.00",
     tag: null,
     image: "https://images.unsplash.com/photo-1572119865084-43c285814d63?q=80&w=600&auto=format&fit=crop",
   },
@@ -37,7 +37,7 @@ const STATIC_MUGS = [
     id: "sm4",
     name: "Minimalist Name Mug",
     description: "Clean, modern typography with your name or message. Available in white or black matte finish.",
-    price: "18.99",
+    price: "890.00",
     tag: null,
     image: "https://images.unsplash.com/photo-1517256673644-36ad11246d21?q=80&w=600&auto=format&fit=crop",
   },
@@ -45,7 +45,7 @@ const STATIC_MUGS = [
     id: "sm5",
     name: "Birthday Surprise Mug",
     description: "A heat-sensitive color-changing mug that reveals your custom message or photo when filled with a hot drink.",
-    price: "27.99",
+    price: "1350.00",
     tag: "Trending",
     image: "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=600&auto=format&fit=crop",
   },
@@ -53,7 +53,7 @@ const STATIC_MUGS = [
     id: "sm6",
     name: "Pet Portrait Mug",
     description: "Feature your beloved pet as a custom illustration on a premium ceramic mug — an adorable personal keepsake.",
-    price: "29.99",
+    price: "1450.00",
     tag: "Fan Favourite",
     image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=600&auto=format&fit=crop",
   },
@@ -129,7 +129,7 @@ export default function MugsPage() {
                   <h3 className={mugStyles.catalogCardTitle}>{mug.name}</h3>
                   <p className={mugStyles.catalogCardDesc}>{mug.description}</p>
                   <div className={mugStyles.catalogCardFooter}>
-                    <span className={mugStyles.catalogPrice}>${mug.price}</span>
+                    <span className={mugStyles.catalogPrice}>Rs. {mug.price}</span>
                     <button className={mugStyles.catalogBtn} onClick={() => handleBuyNow(mug)}>Buy Now</button>
                   </div>
                 </div>
@@ -159,7 +159,7 @@ export default function MugsPage() {
                     <h3 className={styles.productName}>{product.name}</h3>
                     <p className={styles.productDescription}>{product.description}</p>
                     <div className={styles.cardFooter}>
-                      <span className={styles.price}>${product.price}</span>
+                      <span className={styles.price}>Rs. {product.price}</span>
                       <span className={`${styles.stockInfo} ${outOfStock ? styles.outOfStock : styles.inStock}`}>
                         {outOfStock ? 'Out of Stock' : `${product.stock_quantity} in stock`}
                       </span>

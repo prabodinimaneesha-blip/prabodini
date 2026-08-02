@@ -11,6 +11,9 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [toast, setToast] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -42,6 +45,20 @@ export default function Home() {
     router.push(`/checkout?${params.toString()}`);
   };
 
+  const handleAddToCart = (product) => {
+    setCart((prev) => {
+      const existing = prev.find((item) => item.id === product.id);
+      if (existing) {
+        return prev.map((item) =>
+          item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+        );
+      }
+      return [...prev, { ...product, qty: 1 }];
+    });
+    setToast(`"${product.name}" added to cart!`);
+    setTimeout(() => setToast(null), 3000);
+  };
+
   return (
     <div className={styles.container}>
       <Header />
@@ -57,7 +74,12 @@ export default function Home() {
             Curated premium gifts for those who appreciate the finer<br />
             things in life, Exclusively at Viola Gifts.
           </p>
-          <button className={styles.goldenButton}>Shop Now</button>
+          <button
+            className={styles.goldenButton}
+            onClick={() => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" })}
+          >
+            Shop Now
+          </button>
         </div>
       </section>
 
@@ -141,7 +163,7 @@ export default function Home() {
       </section>
 
       {/* Products Section */}
-      <section className={styles.productsSection}>
+      <section id="products" className={styles.productsSection}>
         <h2 className={styles.sectionTitle}>All Products</h2>
 
         {loading ? (
@@ -173,19 +195,27 @@ export default function Home() {
                       <p className={styles.productDescription}>{product.description}</p>
 
                       <div className={styles.cardFooter}>
-                        <span className={styles.price}>${product.price}</span>
+                        <span className={styles.price}>Rs. {product.price}</span>
                         <span className={`${styles.stockInfo} ${outOfStock ? styles.outOfStock : styles.inStock}`}>
                           {outOfStock ? 'Out of Stock' : `${product.stock_quantity} in stock`}
                         </span>
                       </div>
 
-                      <button
-                        className={styles.addToCartBtn}
-                        disabled={outOfStock}
-                        onClick={() => handleBuyNow(product)}
-                      >
-                        {outOfStock ? 'Out of Stock' : 'Buy Now'}
-                      </button>
+                      <div className={styles.cardActions}>
+                        <button
+                          className={styles.viewDetailsBtn}
+                          onClick={() => setSelectedProduct(product)}
+                        >
+                          View Details
+                        </button>
+                        <button
+                          className={styles.addToCartBtn}
+                          disabled={outOfStock}
+                          onClick={() => handleAddToCart(product)}
+                        >
+                          {outOfStock ? 'Out of Stock' : 'Add to Cart'}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );
@@ -198,6 +228,75 @@ export default function Home() {
           </div>
         )}
       </section>
+
+      {/* Product Detail Modal */}
+      {selectedProduct && (
+        <div className={styles.modalOverlay} onClick={() => setSelectedProduct(null)}>
+          <div className={styles.productModal} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.modalCloseBtn} onClick={() => setSelectedProduct(null)}>✕</button>
+            <div className={styles.productModalInner}>
+              {/* Image */}
+              <div className={styles.modalImageBox}>
+                {selectedProduct.images && selectedProduct.images.length > 0 ? (
+                  <img
+                    src={selectedProduct.images[0]}
+                    alt={selectedProduct.name}
+                    className={styles.modalImage}
+                  />
+                ) : (
+                  <div className={styles.modalNoImage}>No Image</div>
+                )}
+                {selectedProduct.stock_quantity <= 0 && (
+                  <span className={styles.modalOutOfStockBadge}>Out of Stock</span>
+                )}
+              </div>
+
+              {/* Info */}
+              <div className={styles.modalInfo}>
+                <p className={styles.modalCategory}>{selectedProduct.category || 'Gift'}</p>
+                <h2 className={styles.modalProductName}>{selectedProduct.name}</h2>
+                <p className={styles.modalDescription}>{selectedProduct.description}</p>
+
+                <div className={styles.modalPriceRow}>
+                  <span className={styles.modalPrice}>Rs. {selectedProduct.price}</span>
+                  <span className={`${styles.stockInfo} ${
+                    selectedProduct.stock_quantity <= 0 ? styles.outOfStock : styles.inStock
+                  }`}>
+                    {selectedProduct.stock_quantity <= 0
+                      ? 'Out of Stock'
+                      : `${selectedProduct.stock_quantity} in stock`}
+                  </span>
+                </div>
+
+                <div className={styles.modalActions}>
+                  <button
+                    className={styles.modalCartBtn}
+                    disabled={selectedProduct.stock_quantity <= 0}
+                    onClick={() => { handleAddToCart(selectedProduct); setSelectedProduct(null); }}
+                  >
+                    🛒 Add to Cart
+                  </button>
+                  <button
+                    className={styles.modalBuyBtn}
+                    disabled={selectedProduct.stock_quantity <= 0}
+                    onClick={() => handleBuyNow(selectedProduct)}
+                  >
+                    Buy Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Toast Notification */}
+      {toast && (
+        <div className={styles.toast}>
+          <span>✓</span> {toast}
+        </div>
+      )}
+
 
       {/* Contact & Footer Section */}
       <section className={styles.contactSection}>
