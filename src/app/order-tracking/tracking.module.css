@@ -1,6 +1,6 @@
 .trackingContainer {
   min-height: 100vh;
-  background-color: #f8fafc;
+  background-color: #f6a6d5;
   color: #0f172a;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
@@ -28,7 +28,7 @@
 }
 
 .searchSection {
-  background: #ffffff;
+  background: #ffc4de;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
   padding: 2.5rem;
@@ -79,7 +79,7 @@
   letter-spacing: 0.05em;
   border: none;
   cursor: pointer;
-  background: #0f172a;
+  background: #101163;
   color: #ffffff;
   transition: background-color 0.2s;
   height: 46px;
@@ -90,7 +90,7 @@
 }
 
 .trackBtn:hover:not(:disabled) {
-  background: #1e293b;
+  background: #2630f4;
 }
 
 .trackBtn:disabled {
@@ -108,8 +108,15 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .orderHeader {
@@ -269,7 +276,8 @@
   gap: 2.5rem;
 }
 
-.productsBlock, .deliveryBlock {
+.productsBlock,
+.deliveryBlock {
   background: #ffffff;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
@@ -382,18 +390,18 @@
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .detailsGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .stepper {
     flex-direction: column;
     align-items: flex-start;
     gap: 2rem;
     padding-left: 2rem;
   }
-  
+
   .stepper::before {
     top: 0;
     bottom: 0;
@@ -401,7 +409,7 @@
     width: 4px;
     height: auto;
   }
-  
+
   .stepperProgressLine {
     top: 0;
     left: 44px;
@@ -409,7 +417,7 @@
     height: 0;
     transition: height 0.5s ease;
   }
-  
+
   .step {
     flex-direction: row;
     align-items: center;
@@ -417,7 +425,7 @@
     gap: 1.5rem;
     width: 100%;
   }
-  
+
   .stepTitle {
     margin-top: 0;
   }

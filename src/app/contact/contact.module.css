@@ -1,6 +1,6 @@
 .contactContainer {
   min-height: 100vh;
-  background-color: #f8fafc;
+  background-color: #f6a6d5;
   color: #0f172a;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
@@ -20,7 +20,10 @@
 .contactHero::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image: linear-gradient(180deg, rgba(13, 10, 30, 0.7) 0%, rgba(13, 10, 30, 0.95) 100%), url('https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=1200&auto=format&fit=crop');
   background-size: cover;
   background-position: center;
@@ -49,7 +52,7 @@
   color: #ffffff;
   font-family: 'Times New Roman', Times, serif;
   margin-bottom: 1.5rem;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .heroSubtitle {
@@ -97,7 +100,7 @@
 }
 
 .infoCard {
-  background: #ffffff;
+  background: #ffc4de;
   border-radius: 8px;
   border: 1px solid #e2e8f0;
   padding: 1.5rem;
@@ -114,8 +117,8 @@
   width: 48px;
   height: 48px;
   border-radius: 8px;
-  background: #fef08a;
-  color: #854d0e;
+  background: #f48afe;
+  color: #f0366b;
   flex-shrink: 0;
 }
 
@@ -126,7 +129,8 @@
   margin-bottom: 0.25rem;
 }
 
-.cardDetails p, .cardDetails a {
+.cardDetails p,
+.cardDetails a {
   font-size: 0.95rem;
   color: #64748b;
   line-height: 1.5;
@@ -139,7 +143,7 @@
 }
 
 .formSection {
-  background: #ffffff;
+  background: #ffc4de;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
   padding: 3rem;
@@ -171,13 +175,14 @@
   color: #475569;
 }
 
-.input, .textarea {
+.input,
+.textarea {
   padding: 0.75rem 1rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #090909;
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.2s ease, outline 0.2s ease;
-  background: #f8fafc;
+  background: #ffc4de;
   font-family: inherit;
 }
 
@@ -186,10 +191,11 @@
   resize: vertical;
 }
 
-.input:focus, .textarea:focus {
+.input:focus,
+.textarea:focus {
   outline: 2px solid #0f172a;
   border-color: #0f172a;
-  background: #ffffff;
+  background: #ffc4de;
 }
 
 .submitBtn {
@@ -201,13 +207,13 @@
   letter-spacing: 0.05em;
   border: none;
   cursor: pointer;
-  background: #0f172a;
+  background: #07063c;
   color: #ffffff;
   transition: background-color 0.2s;
 }
 
 .submitBtn:hover:not(:disabled) {
-  background: #1e293b;
+  background: #2a14eb;
 }
 
 .submitBtn:disabled {
@@ -247,6 +253,7 @@
     grid-template-columns: 1fr;
     gap: 3rem;
   }
+
   .formSection {
     padding: 2rem;
   }
@@ -256,6 +263,7 @@
   .heroTitle {
     font-size: 2.5rem;
   }
+
   .heroSubtitle {
     font-size: 1.1rem;
   }

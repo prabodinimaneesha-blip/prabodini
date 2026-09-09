@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import styles from "../page.module.css";
 import trackingStyles from "./tracking.module.css";
@@ -110,16 +110,10 @@ export default function OrderTrackingPage() {
   const [searched, setSearched] = useState(false);
   const [orderData, setOrderData] = useState(null);
 
-  const handleTrack = async (e) => {
-    e.preventDefault();
-    if (!orderId || !email) return;
-
+  const performLookup = async (targetOrderId, targetEmail) => {
     setLoading(true);
     setSearched(true);
     setOrderData(null);
-
-    const targetOrderId = orderId.trim();
-    const targetEmail = email.trim().toLowerCase();
 
     try {
       // 1. Try to fetch order from Firestore first
@@ -128,14 +122,13 @@ export default function OrderTrackingPage() {
 
       if (orderSnap.exists()) {
         const data = orderSnap.data();
-        // Check if email matches (or bypass if no email stored in document for this order ID)
         if (!data.email || data.email.toLowerCase() === targetEmail) {
           setOrderData({
             id: targetOrderId,
-            customer: data.first_name ? `${data.first_name} ${data.last_name || ""}` : "Customer",
+            customer: data.first_name ? `${data.first_name} ${data.last_name || ""}` : (data.firstName ? `${data.firstName} ${data.lastName || ""}` : "Customer"),
             email: data.email || targetEmail,
-            date: data.paidAt ? data.paidAt.split("T")[0] : new Date().toISOString().split("T")[0],
-            total: data.amount ? `LKR ${parseFloat(data.amount).toLocaleString()}` : "N/A",
+            date: data.paidAt ? data.paidAt.split("T")[0] : (data.createdAt ? data.createdAt.split("T")[0] : new Date().toISOString().split("T")[0]),
+            total: data.amount ? `LKR ${parseFloat(data.amount).toLocaleString('en-LK', { minimumFractionDigits: 2 })}` : "N/A",
             status: data.status || "Paid",
             address: data.address ? `${data.address}, ${data.city || ""}, Sri Lanka` : "Colombo, Sri Lanka",
             products: data.items ? [{ name: data.items, qty: 1, price: `LKR ${data.amount}` }] : [{ name: "Gift Item", qty: 1, price: `LKR ${data.amount}` }],
@@ -177,6 +170,27 @@ export default function OrderTrackingPage() {
 
     setLoading(false);
   };
+
+  const handleTrack = async (e) => {
+    if (e) e.preventDefault();
+    if (!orderId || !email) return;
+    performLookup(orderId.trim(), email.trim().toLowerCase());
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const queryOrderId = params.get("orderId");
+      const queryEmail = params.get("email");
+      if (queryOrderId && queryEmail) {
+        const cleanOrderId = queryOrderId.trim();
+        const cleanEmail = queryEmail.trim().toLowerCase();
+        setOrderId(cleanOrderId);
+        setEmail(cleanEmail);
+        performLookup(cleanOrderId, cleanEmail);
+      }
+    }
+  }, []);
 
   const currentStep = orderData ? getStatusStep(orderData.status) : 0;
   const isCancelled = orderData && orderData.status.toLowerCase() === "cancelled";
@@ -379,22 +393,7 @@ export default function OrderTrackingPage() {
         )}
       </main>
 
-      <footer className={styles.contactSection} style={{ borderTop: "1px solid #e2e8f0" }}>
-        <div className={styles.footerBar}>
-          <p>© {new Date().getFullYear()} Viola Gifts · Colombo, Sri Lanka. All rights reserved.</p>
-          <div className={styles.footerSocials}>
-            <a href="https://facebook.com/violagifts" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            </a>
-            <a href="https://tiktok.com/@violagifts" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.77a4.85 4.85 0 0 1-1.01-.08z"/></svg>
-            </a>
-            <a href="https://instagram.com/violagifts" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            </a>
-          </div>
-        </div>
-      </footer>
+
     </div>
   );
 }

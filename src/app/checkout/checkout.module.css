@@ -365,3 +365,392 @@
     padding: 2rem 5%;
   }
 }
+
+/* ── Credit Card Mockup ── */
+.cardWrapper {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 340px;
+  margin: 1.5rem auto;
+  aspect-ratio: 1.586 / 1;
+}
+
+.creditCard {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.creditCardFlipped {
+  transform: rotateY(180deg);
+}
+
+.cardFront, .cardBack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+}
+
+.cardFront {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.visaCard {
+  background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+}
+.masterCard {
+  background: linear-gradient(135deg, #3b0764 0%, #0f172a 100%);
+}
+.amexCard {
+  background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
+}
+.discoverCard {
+  background: linear-gradient(135deg, #7c2d12 0%, #0f172a 100%);
+}
+
+.cardBack {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  transform: rotateY(180deg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.5rem 0;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardChip {
+  width: 40px;
+  height: 30px;
+  background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 100%);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cardChip::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+
+.cardTypeLogo {
+  font-weight: 800;
+  font-style: italic;
+  font-size: 1.35rem;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.cardNumberDisplay {
+  font-size: 1.25rem;
+  letter-spacing: 2px;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 1.5rem 0 0.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.cardHolderDisplay, .cardExpiryDisplay {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardLabel {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+
+.cardValue {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+/* Card Back Styles */
+.magneticStrip {
+  width: 100%;
+  height: 40px;
+  background: #000000;
+  margin-top: 5px;
+}
+
+.signatureArea {
+  margin: 15px 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.signatureLine {
+  background: #f1f5f9;
+  height: 35px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.cvvDisplay {
+  color: #000000;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+.cardBackInstructions {
+  font-size: 0.55rem;
+  color: #94a3b8;
+  padding: 0 1.5rem;
+  line-height: 1.4;
+  margin-top: auto;
+}
+
+/* ── Card Input Form Section ── */
+.cardFormSection {
+  margin-top: 1.25rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  animation: fadeSlideIn 0.3s ease;
+}
+
+.cardFormTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cardFormGrid {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1fr;
+  gap: 1rem;
+}
+
+.cardInputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cardInputWrapper input {
+  width: 100%;
+  padding-right: 2.5rem;
+}
+
+.cardInputLogo {
+  position: absolute;
+  right: 12px;
+  font-size: 1.25rem;
+  pointer-events: none;
+}
+
+.inputError {
+  border-color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.05) !important;
+}
+
+.inputError:focus {
+  outline: 2px solid #ef4444 !important;
+}
+
+.errorText {
+  color: #ef4444;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* ── Success Screen ── */
+.successContainer {
+  max-width: 600px;
+  margin: 4rem auto;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+  padding: 3rem 2.5rem;
+  text-align: center;
+  animation: fadeSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.successIconWrapper {
+  width: 80px;
+  height: 80px;
+  background: rgba(34, 197, 94, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  border: 2px solid rgba(34, 197, 94, 0.2);
+}
+
+.successCheckmark {
+  font-size: 2.5rem;
+  color: #22c55e;
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.successTitle {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.successSubtitle {
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 2.5rem;
+}
+
+.receiptCard {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 1.75rem;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.receiptTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.receiptRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  padding: 0.5rem 0;
+  color: #475569;
+}
+
+.receiptRowBold {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 1rem;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.receiptItems {
+  margin: 0.5rem 0;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+
+.receiptItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #64748b;
+  padding: 0.25rem 0;
+}
+
+.successActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.primaryActionBtn, .secondaryActionBtn {
+  padding: 0.875rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  text-align: center;
+}
+
+.primaryActionBtn {
+  background: #facc15;
+  color: #000000;
+  border: none;
+  box-shadow: 0 4px 14px rgba(250, 204, 21, 0.35);
+}
+
+.primaryActionBtn:hover {
+  background-color: #eab308;
+  box-shadow: 0 6px 20px rgba(250, 204, 21, 0.5);
+}
+
+.secondaryActionBtn {
+  background: #f8fafc;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
+.secondaryActionBtn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+/* Form Shaking animation on validation error */
+.shake {
+  animation: shakeAnimation 0.4s ease;
+}
+
+@keyframes shakeAnimation {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
