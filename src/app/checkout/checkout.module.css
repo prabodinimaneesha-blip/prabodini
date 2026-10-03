@@ -1,8 +1,65 @@
 .checkoutContainer {
   min-height: 100vh;
-  background-color: #f8fafc;
+  background-color: #f6a6d5;
   color: #0f172a;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Checkout Hero (Matching Contact & About Pages) ────────────────── */
+.checkoutHero {
+  position: relative;
+  padding: 6rem 5% 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #0d0a1e;
+  overflow: hidden;
+}
+
+.checkoutHero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(180deg, rgba(13, 10, 30, 0.7) 0%, rgba(13, 10, 30, 0.95) 100%), url('https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=1200&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  opacity: 0.85;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+}
+
+.heroTag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #facc15;
+  margin-bottom: 1rem;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  color: #cbd5e1;
+  line-height: 1.6;
 }
 
 .checkoutContent {
@@ -28,11 +85,11 @@
 
 /* Form Section */
 .formSection {
-  background: #ffffff;
+  background: #ffc4de;
   padding: 2.5rem;
-  border-radius: 8px;
+  border-radius: 12px;
   border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
 .sectionTitle {
@@ -41,7 +98,7 @@
   margin-bottom: 2rem;
   color: #1e293b;
   font-family: 'Times New Roman', Times, serif;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.12);
   padding-bottom: 1rem;
 }
 
@@ -70,26 +127,32 @@
 
 .input {
   padding: 0.75rem 1rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #090909;
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.2s ease, outline 0.2s ease;
-  background: #f8fafc;
+  background: #ffc4de;
+  color: #0f172a;
+  font-family: inherit;
 }
 
 .input:focus {
   outline: 2px solid #0f172a;
   border-color: #0f172a;
-  background: #ffffff;
+  background: #ffc4de;
+}
+
+.input::placeholder {
+  color: #64748b;
 }
 
 /* Order Summary Section */
 .summarySection {
-  background: #ffffff;
+  background: #ffc4de;
   padding: 2.5rem;
-  border-radius: 8px;
+  border-radius: 12px;
   border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
   height: fit-content;
   position: sticky;
   top: 100px;
@@ -100,7 +163,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
 }
 
 .itemInfo {
@@ -156,7 +219,7 @@
   font-size: 1.25rem;
   font-weight: 700;
   color: #0f172a;
-  border-top: 2px solid #e2e8f0;
+  border-top: 2px solid rgba(15, 23, 42, 0.15);
   padding-top: 1rem;
   margin-top: 0.5rem;
 }
@@ -165,8 +228,8 @@
   width: 100%;
   padding: 1.25rem;
   margin-top: 2rem;
-  background-color: #facc15;
-  color: #000000;
+  background-color: #07063c;
+  color: #ffffff;
   border: none;
   border-radius: 4px;
   font-weight: 700;
@@ -175,13 +238,21 @@
   letter-spacing: 0.05em;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(250, 204, 21, 0.3);
+  box-shadow: 0 4px 15px rgba(7, 6, 60, 0.3);
 }
 
-.checkoutBtn:hover {
-  background-color: #eab308;
+.checkoutBtn:hover:not(:disabled) {
+  background-color: #2a14eb;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
+  box-shadow: 0 6px 20px rgba(42, 20, 235, 0.4);
+}
+
+.checkoutBtn:disabled {
+  background-color: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 /* ── Payment Method Cards ──────────────────────────────────────────── */
@@ -196,23 +267,23 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem 1.25rem;
-  border: 2px solid #e2e8f0;
+  border: 1px solid #090909;
   border-radius: 8px;
   cursor: pointer;
   transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-  background: #f8fafc;
+  background: #ffc4de;
   position: relative;
 }
 
 .paymentCard:hover {
-  border-color: #94a3b8;
-  background: #ffffff;
+  border-color: #07063c;
+  background: #fca8ce;
 }
 
 .paymentCardActive {
-  border-color: #0f172a !important;
-  background: #ffffff !important;
-  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+  border-color: #07063c !important;
+  background: #fca8ce !important;
+  box-shadow: 0 0 0 3px rgba(7, 6, 60, 0.15);
 }
 
 .paymentRadio {
@@ -242,14 +313,14 @@
 
 .paymentDesc {
   font-size: 0.8rem;
-  color: #64748b;
+  color: #475569;
 }
 
 .paymentCheck {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #0f172a;
-  background: #facc15;
+  color: #ffffff;
+  background: #07063c;
   width: 1.6rem;
   height: 1.6rem;
   border-radius: 50%;
@@ -262,8 +333,8 @@
 /* ── Bank Details Box ──────────────────────────────────────────────── */
 .bankDetails {
   margin-top: 1.25rem;
-  background: #f0f9ff;
-  border: 1px solid #bae6fd;
+  background: #fca8ce;
+  border: 1px solid #090909;
   border-radius: 8px;
   padding: 1.25rem 1.5rem;
   animation: fadeSlideIn 0.25s ease;
@@ -272,7 +343,7 @@
 .bankDetailsTitle {
   font-size: 1rem;
   font-weight: 700;
-  color: #0c4a6e;
+  color: #07063c;
   margin-bottom: 0.875rem;
 }
 
@@ -281,7 +352,7 @@
   justify-content: space-between;
   font-size: 0.9rem;
   padding: 0.4rem 0;
-  border-bottom: 1px solid #e0f2fe;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   color: #1e293b;
 }
 
@@ -290,7 +361,7 @@
 }
 
 .bankRow span:first-child {
-  color: #64748b;
+  color: #475569;
   font-weight: 500;
 }
 
@@ -301,11 +372,12 @@
 .bankNote {
   margin-top: 0.875rem;
   font-size: 0.82rem;
-  color: #475569;
+  color: #1e293b;
   line-height: 1.6;
-  background: #e0f2fe;
+  background: #ffc4de;
   border-radius: 4px;
   padding: 0.6rem 0.85rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 /* ── COD Note ──────────────────────────────────────────────────────── */
@@ -314,12 +386,12 @@
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  background: #fefce8;
-  border: 1px solid #fde68a;
+  background: #fca8ce;
+  border: 1px solid #090909;
   border-radius: 8px;
   padding: 1rem 1.25rem;
   font-size: 0.875rem;
-  color: #78350f;
+  color: #07063c;
   line-height: 1.6;
   animation: fadeSlideIn 0.25s ease;
 }
@@ -546,11 +618,12 @@
 /* ── Card Input Form Section ── */
 .cardFormSection {
   margin-top: 1.25rem;
-  background: #ffffff;
+  background: #ffc4de;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 1.5rem;
   animation: fadeSlideIn 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
 .cardFormTitle {
@@ -561,6 +634,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .cardFormGrid {
@@ -608,7 +682,7 @@
 .successContainer {
   max-width: 600px;
   margin: 4rem auto;
-  background: #ffffff;
+  background: #ffc4de;
   border-radius: 16px;
   border: 1px solid #e2e8f0;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
@@ -620,18 +694,19 @@
 .successIconWrapper {
   width: 80px;
   height: 80px;
-  background: rgba(34, 197, 94, 0.1);
+  background: #f48afe;
+  color: #f0366b;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.5rem;
-  border: 2px solid rgba(34, 197, 94, 0.2);
+  border: 2px solid rgba(240, 54, 107, 0.3);
 }
 
 .successCheckmark {
   font-size: 2.5rem;
-  color: #22c55e;
+  color: #07063c;
   animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -639,19 +714,19 @@
   font-family: 'Times New Roman', Times, serif;
   font-size: 2.25rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #1e293b;
   margin-bottom: 0.5rem;
 }
 
 .successSubtitle {
   font-size: 1rem;
-  color: #64748b;
+  color: #475569;
   margin-bottom: 2.5rem;
 }
 
 .receiptCard {
-  background: #f8fafc;
-  border: 1px dashed #cbd5e1;
+  background: #fca8ce;
+  border: 1px dashed #090909;
   border-radius: 8px;
   padding: 1.75rem;
   text-align: left;
@@ -661,8 +736,8 @@
 .receiptTitle {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #0f172a;
-  border-bottom: 1px solid #e2e8f0;
+  color: #07063c;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding-bottom: 0.75rem;
   margin-bottom: 1rem;
 }
@@ -672,21 +747,21 @@
   justify-content: space-between;
   font-size: 0.9rem;
   padding: 0.5rem 0;
-  color: #475569;
+  color: #334155;
 }
 
 .receiptRowBold {
   font-weight: 700;
-  color: #0f172a;
+  color: #07063c;
   font-size: 1rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 0.75rem;
   margin-top: 0.5rem;
 }
 
 .receiptItems {
   margin: 0.5rem 0;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding-bottom: 0.5rem;
 }
 
@@ -694,7 +769,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 0.85rem;
-  color: #64748b;
+  color: #475569;
   padding: 0.25rem 0;
 }
 
@@ -716,27 +791,27 @@
 }
 
 .primaryActionBtn {
-  background: #facc15;
-  color: #000000;
+  background: #07063c;
+  color: #ffffff;
   border: none;
-  box-shadow: 0 4px 14px rgba(250, 204, 21, 0.35);
+  box-shadow: 0 4px 14px rgba(7, 6, 60, 0.3);
 }
 
 .primaryActionBtn:hover {
-  background-color: #eab308;
-  box-shadow: 0 6px 20px rgba(250, 204, 21, 0.5);
+  background-color: #2a14eb;
+  box-shadow: 0 6px 20px rgba(42, 20, 235, 0.4);
 }
 
 .secondaryActionBtn {
-  background: #f8fafc;
-  color: #475569;
-  border: 1px solid #cbd5e1;
+  background: #ffc4de;
+  color: #07063c;
+  border: 1px solid #090909;
 }
 
 .secondaryActionBtn:hover {
-  background: #f1f5f9;
-  color: #0f172a;
-  border-color: #94a3b8;
+  background: #ffffff;
+  color: #07063c;
+  border-color: #07063c;
 }
 
 @keyframes scaleIn {

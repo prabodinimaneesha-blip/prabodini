@@ -6,12 +6,14 @@ import { db } from "../firebase";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Header from "../components/Header";
+import { mockProducts } from "../data/mockProducts";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("All Products");
   const [cart, setCart] = useState([]);
   const [toast, setToast] = useState(null);
   const router = useRouter();
@@ -24,9 +26,14 @@ export default function Home() {
           id: doc.id,
           ...doc.data()
         }));
-        setProducts(productsList);
+        if (productsList.length > 0) {
+          setProducts(productsList);
+        } else {
+          setProducts(mockProducts);
+        }
       } catch (error) {
         console.error("Error fetching products: ", error);
+        setProducts(mockProducts);
       } finally {
         setLoading(false);
       }
@@ -162,9 +169,29 @@ export default function Home() {
         </div>
       </section>
 
+
       {/* Products Section */}
       <section id="products" className={styles.productsSection}>
-        <h2 className={styles.sectionTitle}>All Products</h2>
+        <div className={styles.sectionHeaderWrap}>
+          <p className={styles.sectionPreTitle}>✦ Handcrafted &amp; Personalized</p>
+          <h2 className={styles.sectionTitle}>All Products</h2>
+          <p className={styles.sectionSubtitleText}>
+            Explore our curated collection of luxury gift boxes, personalized mugs, vintage photo frames, and laser-engraved keepsakes.
+          </p>
+        </div>
+
+        {/* Product Category Filter Tabs */}
+        <div className={styles.productFilterTabs}>
+          {["All Products", "Gift Boxes", "Mugs", "Photo Frames", "Key Tags", "Customized Gifts"].map((cat) => (
+            <button
+              key={cat}
+              className={`${styles.productFilterBtn} ${selectedCategory === cat ? styles.productFilterBtnActive : ""}`}
+              onClick={() => setSelectedCategory(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
 
         {loading ? (
           <div className={styles.loadingContainer}>
@@ -172,57 +199,66 @@ export default function Home() {
           </div>
         ) : (
           <div className={styles.grid}>
-            {products.length > 0 ? (
-              products.map((product) => {
-                const outOfStock = product.stock_quantity <= 0;
+            {products.filter(p => selectedCategory === "All Products" || p.category?.toLowerCase() === selectedCategory.toLowerCase()).length > 0 ? (
+              products
+                .filter(p => selectedCategory === "All Products" || p.category?.toLowerCase() === selectedCategory.toLowerCase())
+                .map((product) => {
+                  const outOfStock = product.stock_quantity <= 0;
 
-                return (
-                  <div key={product.id} className={styles.card}>
-                    <div className={styles.cardImageWrapper}>
-                      {product.images && product.images.length > 0 ? (
-                        <img
-                          src={product.images[0]}
-                          alt={product.name}
-                          className={styles.cardImage}
-                        />
-                      ) : (
-                        <div className={styles.noImage}>No Image Available</div>
-                      )}
-                    </div>
+                  return (
+                    <div key={product.id} className={styles.card}>
 
-                    <div className={styles.cardContent}>
-                      <h3 className={styles.productName}>{product.name}</h3>
-                      <p className={styles.productDescription}>{product.description}</p>
-
-                      <div className={styles.cardFooter}>
-                        <span className={styles.price}>Rs. {product.price}</span>
-                        <span className={`${styles.stockInfo} ${outOfStock ? styles.outOfStock : styles.inStock}`}>
-                          {outOfStock ? 'Out of Stock' : `${product.stock_quantity} in stock`}
-                        </span>
+                      <div className={styles.cardImageWrapper}>
+                        {product.images && product.images.length > 0 ? (
+                          <img
+                            src={product.images[0]}
+                            alt={product.name}
+                            className={styles.cardImage}
+                          />
+                        ) : product.image ? (
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            className={styles.cardImage}
+                          />
+                        ) : (
+                          <div className={styles.noImage}>No Image Available</div>
+                        )}
                       </div>
 
-                      <div className={styles.cardActions}>
-                        <button
-                          className={styles.viewDetailsBtn}
-                          onClick={() => setSelectedProduct(product)}
-                        >
-                          View Details
-                        </button>
-                        <button
-                          className={styles.addToCartBtn}
-                          disabled={outOfStock}
-                          onClick={() => handleAddToCart(product)}
-                        >
-                          {outOfStock ? 'Out of Stock' : 'Add to Cart'}
-                        </button>
+                      <div className={styles.cardContent}>
+                        <h3 className={styles.productName}>{product.name}</h3>
+                        <p className={styles.productDescription}>{product.description}</p>
+
+                        <div className={styles.cardFooter}>
+                          <span className={styles.price}>Rs. {product.price?.toLocaleString()}</span>
+                          <span className={`${styles.stockInfo} ${outOfStock ? styles.outOfStock : styles.inStock}`}>
+                            {outOfStock ? 'Out of Stock' : `${product.stock_quantity} in stock`}
+                          </span>
+                        </div>
+
+                        <div className={styles.cardActions}>
+                          <button
+                            className={styles.viewDetailsBtn}
+                            onClick={() => setSelectedProduct(product)}
+                          >
+                            View Details
+                          </button>
+                          <button
+                            className={styles.addToCartBtn}
+                            disabled={outOfStock}
+                            onClick={() => handleAddToCart(product)}
+                          >
+                            {outOfStock ? 'Out of Stock' : 'Add to Cart'}
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })
+                  );
+                })
             ) : (
-              <p style={{ textAlign: 'center', gridColumn: '1 / -1', color: '#94a3b8' }}>
-                No products found in the collection.
+              <p style={{ textAlign: 'center', gridColumn: '1 / -1', color: '#94a3b8', padding: '3rem 0' }}>
+                No products found in this category.
               </p>
             )}
           </div>
@@ -243,6 +279,12 @@ export default function Home() {
                     alt={selectedProduct.name}
                     className={styles.modalImage}
                   />
+                ) : selectedProduct.image ? (
+                  <img
+                    src={selectedProduct.image}
+                    alt={selectedProduct.name}
+                    className={styles.modalImage}
+                  />
                 ) : (
                   <div className={styles.modalNoImage}>No Image</div>
                 )}
@@ -258,7 +300,7 @@ export default function Home() {
                 <p className={styles.modalDescription}>{selectedProduct.description}</p>
 
                 <div className={styles.modalPriceRow}>
-                  <span className={styles.modalPrice}>Rs. {selectedProduct.price}</span>
+                  <span className={styles.modalPrice}>Rs. {selectedProduct.price?.toLocaleString()}</span>
                   <span className={`${styles.stockInfo} ${
                     selectedProduct.stock_quantity <= 0 ? styles.outOfStock : styles.inStock
                   }`}>
@@ -284,6 +326,8 @@ export default function Home() {
                     Buy Now
                   </button>
                 </div>
+
+
               </div>
             </div>
           </div>
@@ -387,7 +431,7 @@ export default function Home() {
               >
                 @ViolaGifts →
               </a>
-              <p className={styles.contactCardText}>Watch our gift-wrap videos</p>
+              <p className={styles.contactCardText}>Follow us for latest updates</p>
             </div>
 
             {/* Instagram */}

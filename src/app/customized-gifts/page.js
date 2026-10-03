@@ -57,6 +57,30 @@ const STATIC_GIFTS = [
     tag: "Luxury",
     image: "https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=600&auto=format&fit=crop",
   },
+  {
+    id: "cg7",
+    name: "Personalized Cozy Slippers",
+    description: "Ultra-soft pastel pink slippers with custom gold-embroidered initials. Plush memory foam insole for ultimate comfort — a thoughtful personal gift.",
+    price: "2750.00",
+    tag: "New Arrival",
+    image: "/custom_slippers.jpg",
+  },
+  {
+    id: "cg8",
+    name: "Luxury Flower Box",
+    description: "A stunning hat box arrangement of preserved blush pink & cream roses with dried florals. Wrapped with a satin ribbon bow — lasts over a year.",
+    price: "5950.00",
+    tag: "Luxury",
+    image: "/flower_box.jpg",
+  },
+  {
+    id: "cg9",
+    name: "Custom Teddy Bear Gift Set",
+    description: "An adorable plush teddy bear with a satin bow and personalized 'With Love' heart tag, nestled in a premium navy & gold gift box.",
+    price: "3450.00",
+    tag: "Best Seller",
+    image: "/teddy_bear.jpg",
+  },
 ];
 
 export default function CustomizedGiftsPage() {

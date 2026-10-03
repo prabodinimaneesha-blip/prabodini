@@ -346,8 +346,6 @@ function CheckoutForm() {
 
   return (
     <main className={styles.checkoutContent}>
-      <h1 className={styles.pageTitle}>Secure Checkout</h1>
-
       <form className={styles.checkoutGrid} onSubmit={handleSubmit}>
 
         {/* Left Column: Forms */}
@@ -692,6 +690,17 @@ export default function CheckoutPage() {
   return (
     <div className={styles.checkoutContainer}>
       <Header />
+      {/* Hero Section */}
+      <section className={styles.checkoutHero}>
+        <div className={styles.heroContent}>
+          <span className={styles.heroTag}>Complete Your Order</span>
+          <h1 className={styles.heroTitle}>Secure Checkout</h1>
+          <p className={styles.heroSubtitle}>
+            Review your items, enter delivery details, and complete your purchase securely.
+          </p>
+        </div>
+      </section>
+
       <Suspense fallback={<div style={{ textAlign: "center", padding: "2rem" }}>Loading checkout...</div>}>
         <CheckoutForm />
       </Suspense>
